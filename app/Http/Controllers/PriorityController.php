@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PrioritiesController extends Controller
+class PriorityController extends Controller
 {
     //
 }

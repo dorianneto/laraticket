@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoleUsersTable extends Migration
+class CreateTicketUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateRoleUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_users', function (Blueprint $table) {
+        Schema::create('ticket_user', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('ticket_id');
+            $table->text('message');
             $table->timestamps();
 
-            $table->unique(['user_id', 'role_id']);
+            $table->unique(['user_id', 'ticket_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -31,6 +32,6 @@ class CreateRoleUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_users');
+        Schema::dropIfExists('ticket_user');
     }
 }
