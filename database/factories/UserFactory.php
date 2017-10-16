@@ -17,9 +17,14 @@ $factory->define(App\User::class, function (Faker $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('secret'),
+        'genre'          => $faker->randomElement(['M', 'F']),
         'remember_token' => str_random(10),
+        'department_id'  => function() {
+            return !App\Department::all()->isEmpty() ?
+                App\Department::all()->random()->id : factory(App\Department::class)->create()->id;
+        }
     ];
 });
