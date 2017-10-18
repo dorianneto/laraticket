@@ -15,7 +15,7 @@ class AlterUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->enum('genre', ['M', 'F'])->after('password');
-            $table->unsignedInteger('department_id')->after('remember_token');
+            $table->unsignedInteger('department_id')->nullable()->after('remember_token');
             $table->softDeletes()->after('department_id');
 
             $table->foreign('department_id')
