@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequestInterface;
 use Auth;
 
-class UserRequest extends FormRequest
+class UserRequest extends FormRequest implements FormRequestInterface
 {
     /**
      * Determine if the user is authorized to make this request.

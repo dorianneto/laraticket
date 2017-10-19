@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequestInterface;
 
-class CategoryRequest extends FormRequest
+class CategoryRequest extends FormRequest implements FormRequestInterface
 {
     /**
      * Determine if the user is authorized to make this request.
