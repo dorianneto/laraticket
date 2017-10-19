@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
+
+// User
+Route::get('profile', 'UserController@profile')->name('user.profile');
+Route::put('profile/update', 'UserController@profileUpdate')->name('user.profileUpdate');
