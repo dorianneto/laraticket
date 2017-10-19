@@ -10,4 +10,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * Undocumented function
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
 }
