@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
+Route::resource('auxiliary/category', 'CategoryController');
+
 // User
 Route::get('profile', 'UserController@profile')->name('user.profile');
 Route::put('profile/update', 'UserController@profileUpdate')->name('user.profileUpdate');
