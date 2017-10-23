@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
 Route::resource('auxiliary/category', 'CategoryController');
+Route::resource('auxiliary/priority', 'PriorityController');
 
 // User
 Route::get('profile', 'UserController@profile')->name('user.profile');

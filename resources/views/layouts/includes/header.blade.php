@@ -30,7 +30,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ route('category.index') }}">Categorias</a></li>
-                            <li><a href="#">Prioridades</a></li>
+                            <li><a href="{{ route('priority.index') }}">Prioridades</a></li>
                             <li><a href="#">Departamentos</a></li>
                         </ul>
                     </li>

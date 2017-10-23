@@ -55,12 +55,12 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("message.{$this->module}.success", ['action' => 'cadastrad'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'cadastrad'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [
                 'status' => 'danger',
-                'message' => trans("message.{$this->module}.error", ['action' => 'cadastrar'])
+                'message' => trans("notice.{$this->module}.error", ['action' => 'cadastrar'])
             ];
         }
 
@@ -107,12 +107,12 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("message.{$this->module}.success", ['action' => 'editad'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'editad'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [
                 'status' => 'danger',
-                'message' => trans("message.{$this->module}.error", ['action' => 'editar'])
+                'message' => trans("notice.{$this->module}.error", ['action' => 'editar'])
             ];
         }
 
@@ -132,12 +132,12 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("message.{$this->module}.success", ['action' => 'excluíd'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'excluíd'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [
                 'status' => 'danger',
-                'message' => trans("message.{$this->module}.error", ['action' => 'excluir'])
+                'message' => trans("notice.{$this->module}.error", ['action' => 'excluir'])
             ];
         }
 
