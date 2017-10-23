@@ -4,20 +4,20 @@
     <div class="container">
         <div class="page-header">
             @include('modules.category.partials.actions')
-            <h1>Categorias</h1>
+            <h1>{{ trans('module.category.title') }}</h1>
         </div>
         <ol class="breadcrumb">
-            <li><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
-            <li>Auxiliares</li>
-            <li class="active">Categorias</li>
+            <li><a href="{{ route('dashboard.index') }}">{{ trans('miscellaneous.dashboard') }}</a></li>
+            <li>{{ trans_choice('miscellaneous.auxiliary', 2) }}</li>
+            <li class="active">{{ trans('module.category.title') }}</li>
         </ol>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th width="5%">#</th>
-                    <th width="45%">Título</th>
-                    <th width="30%">Criado em</th>
-                    <th width="20%">Ações</th>
+                    <th width="5%">{{ trans('form.id_column') }}</th>
+                    <th width="45%">{{ trans('form.title') }}</th>
+                    <th width="30%">{{ trans('form.created_at') }}</th>
+                    <th width="20%">{{ trans('form.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,12 +28,12 @@
                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('category.edit', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Editar</a>
-                                <a href="{{ route('category.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> Visualizar</a>
+                                <a href="{{ route('category.edit', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.edit') }}</a>
+                                <a href="{{ route('category.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.show') }}</a>
                                 <a href="#" class="btn btn-danger btn-sm pull-right"
                                     onclick="event.preventDefault();
                                             document.getElementById('delete-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> Excluir
+                                    <i class="fa fa-trash"></i> {{ trans('form.destroy') }}
                                 </a>
                             </div>
 
@@ -45,7 +45,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">Nenhum registro cadastrado</td>
+                        <td colspan="4">{{ trans('message.no_results') }}</td>
                     </tr>
                 @endforelse
             </tbody>
