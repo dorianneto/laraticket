@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 abstract class AbstractRepository
 {
@@ -28,6 +29,16 @@ abstract class AbstractRepository
     public function getAll()
     {
         return $this->model->get();
+    }
+
+    /**
+     * [getForSelect description]
+     * @return [type] [description]
+     */
+    public function getForSelect(array $fields)
+    {
+        list($id, $name) = $fields;
+        return $this->model->pluck($id, $name);
     }
 
     /**
@@ -97,5 +108,24 @@ abstract class AbstractRepository
     public function restore($id)
     {
         return $this->model->withTrashed()->find($id)->restore();
+    }
+
+    /**
+     * [getEnumValues description]
+     * @return [type] [description]
+     */
+    public function getEnumValues($field)
+    {
+        $values = DB::raw('SHOW COLUMNS FROM ' . $this->model->getTable() . ' WHERE field = "' . $field . '"');
+        $output = DB::select($values)[0]->Type;
+
+        preg_match('/^enum\((.*)\)$/', $output, $matches);
+        $values = array();
+
+        foreach(explode(',', $matches[1]) as $value){
+            $values[] = trim($value, "'");
+        }
+
+        return $values;
     }
 }

@@ -19,9 +19,18 @@ Auth::routes();
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
-Route::resource('auxiliary/category', 'CategoryController');
-Route::resource('auxiliary/priority', 'PriorityController');
+Route::prefix('auxiliary')->group(function() {
+    // Categorias
+    Route::resource('category', 'CategoryController');
+
+    // Prioridades
+    Route::resource('priority', 'PriorityController');
+});
+
+// Ticket
 Route::resource('ticket', 'TicketController');
+Route::get('report/create', 'TicketController@report')->name('ticket.report');
+Route::post('report', 'TicketController@storeReport')->name('ticket.storeReport');
 
 // User
 Route::get('profile', 'UserController@profile')->name('user.profile');

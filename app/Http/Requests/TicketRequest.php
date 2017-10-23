@@ -25,7 +25,11 @@ class TicketRequest extends FormRequest implements FormRequestInterface
     public function rules()
     {
         return [
-            'title' => 'required'
+            'title'      => 'required',
+            'message'    => 'required',
+            'department' => 'required',
+            'priority'   => 'required',
+            'category'   => 'required'
         ];
     }
 }
