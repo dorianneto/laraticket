@@ -55,7 +55,7 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("notice.{$this->module}.success", ['action' => 'cadastrad'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'cadastrado'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [
@@ -107,7 +107,7 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("notice.{$this->module}.success", ['action' => 'editad'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'editado'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [
@@ -132,7 +132,7 @@ Trait Crud
 
             $notice = [
                 'status' => 'success',
-                'message' => trans("notice.{$this->module}.success", ['action' => 'excluíd'])
+                'message' => trans("notice.{$this->module}.success", ['action' => 'excluído'])
             ];
         } catch (\Illuminate\Database\QueryException $exception) {
             $notice = [

@@ -22,7 +22,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="#" class="btn btn-link">Dashboard</a></li>
-                    <li><a href="#" class="btn btn-link">Tickets</a></li>
+                    <li><a href="{{ route('ticket.index') }}" class="btn btn-link">Tickets</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle btn btn-link" data-toggle="dropdown" role="button" aria-expanded="false">
                             <i class="fa fa-power-off"></i> Auxiliares <span class="caret"></span>

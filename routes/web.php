@@ -21,6 +21,7 @@ Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
 Route::resource('auxiliary/category', 'CategoryController');
 Route::resource('auxiliary/priority', 'PriorityController');
+Route::resource('ticket', 'TicketController');
 
 // User
 Route::get('profile', 'UserController@profile')->name('user.profile');
