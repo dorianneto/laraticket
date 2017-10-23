@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Generator as Faker;
 
 class TicketsTableSeeder extends Seeder
 {
@@ -9,8 +10,12 @@ class TicketsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        factory(App\Ticket::class, 5)->create();
+        factory(App\Ticket::class, 3)->create();
+
+        factory(App\Ticket::class, 2)->create()->each(function($item) use ($faker) {
+            return $item->users()->attach(2, ['message' => $faker->paragraph]);
+        });
     }
 }
