@@ -111,6 +111,16 @@ abstract class AbstractRepository
     }
 
     /**
+     * [forceDelete description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    public function forceDelete($id)
+    {
+        return $this->model->withTrashed()->find($id)->forceDelete();
+    }
+
+    /**
      * [getEnumValues description]
      * @return [type] [description]
      */

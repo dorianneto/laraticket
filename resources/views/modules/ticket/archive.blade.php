@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="page-header">
-            @include('modules.ticket.partials.actions', ['archived' => true])
-            <h1>{{ trans('module.ticket.title') }}</h1>
+            @include('modules.ticket.partials.actions')
+            <h1>Tickets <span class="badge">arquivados</span></h1>
         </div>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard.index') }}">{{ trans('miscellaneous.dashboard') }}</a></li>
@@ -39,21 +39,25 @@
                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                         <td>
                             <div class="btn-group">
-                                @if(isset($item->user->id))
-                                    <a href="#" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Acessar</a>
-                                @else
-                                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Disponível</a>
-                                @endif
-                                <a href="{{ route('ticket.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.show') }}</a>
-                                <a href="#" class="btn btn-danger btn-sm pull-right"
+                                <a href="#" class="btn btn-success btn-sm"
                                     onclick="event.preventDefault();
-                                            document.getElementById('archive-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> Arquivar
+                                            document.getElementById('restore-{{ $item->id }}').submit();">
+                                    <i class="fa fa-trash"></i> Restaurar
+                                </a>
+                                <a href="#" class="btn btn-danger btn-sm"
+                                    onclick="event.preventDefault();
+                                            if (confirm('Deseja realmente excluir?')) { document.getElementById('delete-{{ $item->id }}').submit();} else { return false;}">
+                                    <i class="fa fa-trash"></i> Excluir
                                 </a>
                             </div>
 
-                            <form id="archive-{{ $item->id }}" action="{{ route('ticket.archivePost', $item->id) }}" method="POST" style="display: none;">
+                            <form id="restore-{{ $item->id }}" action="{{ route('ticket.restore', $item->id) }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
+                            </form>
+
+                            <form id="delete-{{ $item->id }}" action="{{ route('ticket.destroy', $item->id) }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
                             </form>
                         </td>
                     </tr>

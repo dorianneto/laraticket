@@ -8,12 +8,9 @@ use App\Repositories\TicketRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\PriorityRepository;
 use App\Repositories\CategoryRepository;
-use App\Foundation\Crud;
 
 class TicketController extends Controller
 {
-    use Crud;
-
     /**
      * Undocumented variable
      *
@@ -52,12 +49,105 @@ class TicketController extends Controller
         $this->departmentRepository = $departmentRepository;
         $this->priorityRepository   = $priorityRepository;
         $this->categoryRepository   = $categoryRepository;
+    }
 
-        // CRUD
-        app()->bind('App\Http\Requests\FormRequestInterface', 'App\Http\Requests\TicketRequest');
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function index()
+    {
+        $data = $this->ticketRepository->getAll();
 
-        $this->repository = $ticketRepository;
-        $this->module     = 'ticket';
+        return view("modules.ticket.index", compact('data'));
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function archive()
+    {
+        $data = $this->ticketRepository->getAllArchived();
+
+        return view("modules.ticket.archive", compact('data'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function archivePost($id)
+    {
+        try {
+            $this->ticketRepository->delete($id);
+
+            $notice = [
+                'status' => 'success',
+                'message' => trans("notice.ticket.success", ['action' => 'arquivado'])
+            ];
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $notice = [
+                'status' => 'danger',
+                'message' => trans("notice.ticket.error", ['action' => 'arquivar'])
+            ];
+        }
+
+        return redirect()->route("ticket.index")->with(compact('notice'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $this->ticketRepository->forceDelete($id);
+
+            $notice = [
+                'status' => 'success',
+                'message' => trans("notice.ticket.success", ['action' => 'excluído'])
+            ];
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $notice = [
+                'status' => 'danger',
+                'message' => trans("notice.ticket.error", ['action' => 'excluir'])
+            ];
+        }
+
+        return redirect()->route("ticket.archive")->with(compact('notice'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        try {
+            $this->ticketRepository->restore($id);
+
+            $notice = [
+                'status' => 'success',
+                'message' => trans("notice.ticket.success", ['action' => 'restaurado'])
+            ];
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $notice = [
+                'status' => 'danger',
+                'message' => trans("notice.ticket.error", ['action' => 'restaurar'])
+            ];
+        }
+
+        return redirect()->route("ticket.archive")->with(compact('notice'));
     }
 
     /**
