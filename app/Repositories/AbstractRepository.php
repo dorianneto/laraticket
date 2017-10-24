@@ -32,6 +32,15 @@ abstract class AbstractRepository
     }
 
     /**
+     * [getAllWithPaginate description]
+     * @return [type] [description]
+     */
+    public function getAllWithPaginate($perPage = 10)
+    {
+        return $this->model->paginate($perPage);
+    }
+
+    /**
      * [getForSelect description]
      * @return [type] [description]
      */

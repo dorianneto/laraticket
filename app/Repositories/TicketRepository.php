@@ -25,7 +25,7 @@ class TicketRepository extends AbstractRepository
     {
         return Ticket::whereIn('situation', ['in progress', 'open'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
     }
 
     /**

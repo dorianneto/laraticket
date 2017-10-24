@@ -75,6 +75,7 @@
 
                     <div class="panel-footer">
                         <button type="submit" class="btn btn-default">Filtrar</button>
+                        <a href="{{ route('ticket.index') }}" class="btn btn-default">Resetar</a>
                         <a data-toggle="collapse" href="#filterTicket" class="btn btn-link">{{ trans('form.cancel') }}</a>
                     </div>
                 </form>
@@ -130,5 +131,8 @@
                 @endforelse
             </tbody>
         </table>
+        @if ($data instanceof \Illuminate\Pagination\LengthAwarePaginator)
+            {{ $data->links() }}
+        @endif
     </div>
 @endsection

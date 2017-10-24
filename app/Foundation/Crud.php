@@ -27,7 +27,7 @@ Trait Crud
      */
     public function index()
     {
-        $data = $this->repository->getAll();
+        $data = $this->repository->getAllWithPaginate();
 
         return view("modules.{$this->module}.index", compact('data'));
     }
