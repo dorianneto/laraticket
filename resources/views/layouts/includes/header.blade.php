@@ -22,19 +22,25 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="#" class="btn btn-link">Dashboard</a></li>
-                    <li><a href="{{ route('ticket.index') }}" class="btn btn-link">Tickets</a></li>
-                    <li class="active"><a href="{{ route('ticket.report') }}" class="btn btn-link">Reportar</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-link" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-power-off"></i> Auxiliares <span class="caret"></span>
-                        </a>
+                    @can ('list-ticket')
+                        <li><a href="{{ route('ticket.index') }}" class="btn btn-link">Tickets</a></li>
+                    @endcan
+                    @can ('create-ticket')
+                        <li class="active"><a href="{{ route('ticket.report') }}" class="btn btn-link">Reportar</a></li>
+                    @endcan
+                    @can ('see-auxiliares')
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle btn btn-link" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-power-off"></i> Auxiliares <span class="caret"></span>
+                            </a>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('category.index') }}">Categorias</a></li>
-                            <li><a href="{{ route('priority.index') }}">Prioridades</a></li>
-                            <li><a href="#">Departamentos</a></li>
-                        </ul>
-                    </li>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ route('category.index') }}">Categorias</a></li>
+                                <li><a href="{{ route('priority.index') }}">Prioridades</a></li>
+                                <li><a href="#">Departamentos</a></li>
+                            </ul>
+                        </li>
+                    @endcan
                 </ul>
             @endif
 
@@ -51,7 +57,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ route('user.profile') }}"><i class="fa fa-gears" aria-hidden="true"></i> Configurações da conta</a></li>
+                            @can ('edit-profile')
+                                <li><a href="{{ route('user.profile') }}"><i class="fa fa-gears" aria-hidden="true"></i> Configurações da conta</a></li>
+                            @endcan
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}" class="logout"

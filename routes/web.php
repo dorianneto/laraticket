@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('dashboard', 'DashboardController@index')->name('dashboard.index');
 
-Route::prefix('auxiliary')->group(function() {
+Route::prefix('auxiliary')->middleware('can:see-auxiliares')->group(function() {
     // Categorias
     Route::resource('category', 'CategoryController');
 
@@ -28,16 +28,16 @@ Route::prefix('auxiliary')->group(function() {
 });
 
 // Ticket
-Route::get('ticket', 'TicketController@index')->name('ticket.index');
-Route::get('ticket/archive', 'TicketController@archive')->name('ticket.archive');
-Route::post('ticket/archive/{id}', 'TicketController@archivePost')->name('ticket.archivePost');
-Route::post('ticket/restore/{id}', 'TicketController@restore')->name('ticket.restore');
-Route::delete('ticket/{id}', 'TicketController@destroy')->name('ticket.destroy');
-Route::get('ticket/room/{id}', 'TicketController@room')->name('ticket.room');
-Route::post('ticket/room/{id}', 'TicketController@roomPost')->name('ticket.roomPost');
-Route::get('report/create', 'TicketController@report')->name('ticket.report');
-Route::post('report', 'TicketController@reportPost')->name('ticket.reportPost');
+Route::get('ticket', 'TicketController@index')->name('ticket.index')->middleware('can:list-ticket');
+Route::get('ticket/archive', 'TicketController@archive')->name('ticket.archive')->middleware('can:delete-ticket');
+Route::post('ticket/archive/{id}', 'TicketController@archivePost')->name('ticket.archivePost')->middleware('can:delete-ticket');
+Route::post('ticket/restore/{id}', 'TicketController@restore')->name('ticket.restore')->middleware('can:delete-ticket');
+Route::delete('ticket/{id}', 'TicketController@destroy')->name('ticket.destroy')->middleware('can:delete-ticket');
+Route::get('ticket/room/{id}', 'TicketController@room')->name('ticket.room')->middleware('can:show-ticket');
+Route::post('ticket/room/{id}', 'TicketController@roomPost')->name('ticket.roomPost')->middleware('can:show-ticket');
+Route::get('report/create', 'TicketController@report')->name('ticket.report')->middleware('can:create-ticket');
+Route::post('report', 'TicketController@reportPost')->name('ticket.reportPost')->middleware('can:create-ticket');
 
 // User
-Route::get('profile', 'UserController@profile')->name('user.profile');
-Route::put('profile/update', 'UserController@profileUpdate')->name('user.profileUpdate');
+Route::get('profile', 'UserController@profile')->name('user.profile')->middleware('can:edit-profile');
+Route::put('profile/update', 'UserController@profileUpdate')->name('user.profileUpdate')->middleware('can:edit-profile');

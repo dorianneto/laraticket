@@ -39,16 +39,17 @@
                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                         <td>
                             <div class="btn-group">
-                                @if(isset($item->user->id))
+                                @can('show-ticket')
                                     <a href="{{ route('ticket.room', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Acessar</a>
-                                @else
-                                    <a href="{{ route('ticket.room', $item->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Disponível</a>
-                                @endif
-                                <a href="#" class="btn btn-danger btn-sm pull-right"
-                                    onclick="event.preventDefault();
-                                            document.getElementById('archive-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> Arquivar
-                                </a>
+                                @endcan
+
+                                @can('delete-ticket')
+                                    <a href="#" class="btn btn-danger btn-sm pull-right"
+                                        onclick="event.preventDefault();
+                                                document.getElementById('archive-{{ $item->id }}').submit();">
+                                        <i class="fa fa-trash"></i> Arquivar
+                                    </a>
+                                @endcan
                             </div>
 
                             <form id="archive-{{ $item->id }}" action="{{ route('ticket.archivePost', $item->id) }}" method="POST" style="display: none;">

@@ -95,7 +95,7 @@
                                 <button type="submit" class="btn btn-default">{{ trans('form.save') }}</button>
                             @endif
 
-                            @if ($data->users()->count() > 0)
+                            @can('action-ticket')
                                 @if (!in_array($data->situation, ['closed', 'invalid', 'resolved']))
                                     <button type="submit" class="btn btn-success"
                                         onclick="event.preventDefault();
@@ -128,7 +128,7 @@
                                         Fechar
                                     </button>
                                 @endif
-                            @endif
+                            @endcan
                             <a href="{{ route('ticket.index') }}" class="btn btn-link">{{ trans('form.cancel') }}</a>
                         </div>
                     </form>

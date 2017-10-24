@@ -12,40 +12,48 @@ $factory->define(App\Role::class, function (Faker $faker) use (&$uniqueName) {
     $uniqueName[] = $name;
     $slug         = str_slug($name, '-');
     $permissions  = [
-        'show-ticket'   => null,
-        'create-ticket' => null,
-        'close-ticket'  => null,
-        'update-ticket' => null,
-        'delete-ticket' => null
+        'metric-ticket'  => null,
+        'list-ticket'    => null,
+        'show-ticket'    => null,
+        'delete-ticket'  => null,
+        'create-ticket'  => null,
+        'edit-profile'   => null,
+        'see-auxiliares' => null
     ];
 
     switch($name) {
         case 'Manager':
-            $permissions['show-ticket']   = true;
-            $permissions['create-ticket'] = true;
-            $permissions['close-ticket']  = true;
-            $permissions['update-ticket'] = true;
-            $permissions['delete-ticket'] = true;
+            $permissions['metric-ticket']  = true;
+            $permissions['list-ticket']    = true;
+            $permissions['show-ticket']    = true;
+            $permissions['delete-ticket']  = true;
+            $permissions['create-ticket']  = true;
+            $permissions['edit-profile']   = true;
+            $permissions['see-auxiliares'] = true;
             break;
         case 'Operator':
-            $permissions['show-ticket']   = true;
-            $permissions['create-ticket'] = true;
-            $permissions['close-ticket']  = true;
-            $permissions['update-ticket'] = false;
-            $permissions['delete-ticket'] = false;
+            $permissions['metric-ticket']  = false;
+            $permissions['list-ticket']    = true;
+            $permissions['show-ticket']    = true;
+            $permissions['delete-ticket']  = true;
+            $permissions['create-ticket']  = false;
+            $permissions['edit-profile']   = true;
+            $permissions['see-auxiliares'] = false;
             break;
         case 'Customer':
-            $permissions['show-ticket']   = true;
-            $permissions['create-ticket'] = true;
-            $permissions['close-ticket']  = false;
-            $permissions['update-ticket'] = false;
-            $permissions['delete-ticket'] = false;
+            $permissions['metric-ticket']  = false;
+            $permissions['list-ticket']    = true;
+            $permissions['show-ticket']    = true;
+            $permissions['delete-ticket']  = false;
+            $permissions['create-ticket']  = true;
+            $permissions['edit-profile']   = true;
+            $permissions['see-auxiliares'] = false;
             break;
     }
 
     return [
         'name'        => $name,
         'slug'        => $slug,
-        'permissions' => json_encode($permissions)
+        'permissions' => $permissions
     ];
 });
