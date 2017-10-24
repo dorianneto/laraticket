@@ -40,9 +40,9 @@
                         <td>
                             <div class="btn-group">
                                 @if(isset($item->user->id))
-                                    <a href="#" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Acessar</a>
+                                    <a href="{{ route('ticket.room', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> Acessar</a>
                                 @else
-                                    <a href="#" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Disponível</a>
+                                    <a href="{{ route('ticket.room', $item->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Disponível</a>
                                 @endif
                                 <a href="{{ route('ticket.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.show') }}</a>
                                 <a href="#" class="btn btn-danger btn-sm pull-right"

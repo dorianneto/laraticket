@@ -8,6 +8,7 @@ use App\Repositories\TicketRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\PriorityRepository;
 use App\Repositories\CategoryRepository;
+use Auth;
 
 class TicketController extends Controller
 {
@@ -43,7 +44,7 @@ class TicketController extends Controller
         PriorityRepository $priorityRepository,
         CategoryRepository $categoryRepository
     ) {
-        $this->middleware('auth')->except(['report', 'storeReport']);
+        parent::__construct();
 
         $this->ticketRepository     = $ticketRepository;
         $this->departmentRepository = $departmentRepository;
@@ -173,10 +174,11 @@ class TicketController extends Controller
      * @param TicketRequest $request
      * @return void
      */
-    public function storeReport(TicketRequest $request)
+    public function reportPost(TicketRequest $request)
     {
         try {
             $request->merge(['situation' => 'open']);
+            $request->merge(['user_id' => Auth::user()->id]);
             $data = $request->except('_token');
 
             array_map(function($value, $key) use (&$data) {
@@ -209,79 +211,80 @@ class TicketController extends Controller
         return redirect()->back()->with(compact('notice'));
     }
 
-    // /**
-    //  * Display a listing of the resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function index()
-    // {
-    //     //
-    // }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function room($id)
+    {
+        $data = $this->ticketRepository->findForRoom($id);
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+        return view('modules.ticket.room', compact('data'));
+    }
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function roomPost(Request $request, $id)
+    {
+        try {
+            $run_action = $this->runActionOnRoom($request, $id);
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
+            if ($run_action === false) {
+                $this->ticketRepository->assign($id, Auth::user()->id, ['message' => $request->input('message')]);
+            }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+            $notice = [
+                'status' => 'success',
+                'message' => trans("notice.ticket.success", ['action' => 'enviado'])
+            ];
+        } catch (\Illuminate\Database\QueryException $exception) {
+            $notice = [
+                'status' => 'danger',
+                'message' => $exception->getMessage()
+            ];
+        }
 
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+        return redirect()->back()->with(compact('notice'));
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
+    protected function runActionOnRoom(Request $request, $id)
+    {
+        $action = $request->input('action');
+
+        if (empty($action)) {
+            return false;
+        }
+
+        $this->ticketRepository->update($id, ['situation' => $action]);
+
+        $notice = [
+            'status' => 'success',
+            'message' => trans("notice.ticket.success", ['action' => 'enviado'])
+        ];
+
+        return true;
+    }
 }

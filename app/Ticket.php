@@ -15,7 +15,7 @@ class Ticket extends Model
      * @var array
      */
     protected $fillable = [
-        "title", "message", "situation", "department_id", "category_id", "priority_id"
+        "title", "message", "situation", "user_id", "department_id", "category_id", "priority_id"
     ];
 
     /**
@@ -25,7 +25,7 @@ class Ticket extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(\App\User::class);
+        return $this->belongsToMany(\App\User::class)->withPivot('message');
     }
 
     /**

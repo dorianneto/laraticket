@@ -23,12 +23,34 @@ class TicketRepository extends AbstractRepository
      */
     public function getAll()
     {
-        return Ticket::where(function($query) {
-                return $query->whereNull('user_id')
-                    ->orWhere('user_id', Auth::user()->id);
-            })
-            ->where('situation', 'open')
+        return Ticket::where('situation', 'open')
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    /**
+     * [findForRoom description]
+     * @return [type] [description]
+     */
+    public function findForRoom($id)
+    {
+        return Ticket::with('users')->find($id);
+    }
+
+    /**
+     * [assign description]
+     * @return [type] [description]
+     */
+    public function assign($id, $referenceId, array $data)
+    {
+        $has_room = $this->findForRoom($id)->users()->count();
+        $ticket = Ticket::find($id);
+
+
+        if ($has_room == 0) {
+            $update = $ticket->update(['situation' => 'in progress']);
+        }
+
+        return $ticket->users()->attach($referenceId, $data);
     }
 }

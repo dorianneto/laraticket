@@ -17,9 +17,9 @@ class CreateTicketsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('message');
-            $table->enum('situation', ['closed', 'invalid', 'wontfix', 'duplicate', 'open', 'resolved'])->default('open');
+            $table->enum('situation', ['closed', 'invalid', 'in progress', 'open', 'resolved'])->default('open');
             $table->boolean('notification')->default(0);
-            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('priority_id');
             $table->unsignedInteger('category_id');

@@ -6,7 +6,7 @@
             <h1>{{ trans('module.ticket.add_title') }}</h1>
         </div>
         <ol class="breadcrumb">
-            <li><a href="{{ route('login') }}">{{ trans('miscellaneous.login') }}</a></li>
+            <li><a href="{{ route('dashboard.index') }}">{{ trans('miscellaneous.dashboard') }}</a></li>
             <li class="active">{{ trans('module.ticket.add_title') }}</li>
         </ol>
         <div class="row">
@@ -15,7 +15,7 @@
                     <div class="panel-heading">
                         <h3 class="panel-title">{{ trans('module.ticket.add_subtitle') }}</h3>
                     </div>
-                    <form action="{{ route('ticket.storeReport') }}" method="post">
+                    <form action="{{ route('ticket.reportPost') }}" method="post">
                         {{ csrf_field() }}
                         <div class="panel-body">
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

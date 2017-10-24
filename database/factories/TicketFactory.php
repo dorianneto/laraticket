@@ -12,10 +12,7 @@ $factory->define(App\Ticket::class, function (Faker $faker) {
         'title'     => $faker->sentence(4),
         'message'   => $faker->paragraph,
         'situation' => $faker->randomElement([
-            'closed',
-            'invalid',
-            'wontfix',
-            'duplicate'
+            'closed', 'invalid', 'in progress', 'open', 'resolved'
         ]),
         'notification'  => 0,
         'user_id'       => $entity(App\User::class),
