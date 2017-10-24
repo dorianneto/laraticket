@@ -42,7 +42,7 @@
                         </div>
 
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-default">{{ trans('form.update') }}</button>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{ trans('form.update') }}</button>
                             <a href="{{ route('priority.index') }}" class="btn btn-link">{{ trans('form.cancel') }}</a>
                         </div>
                     </form>

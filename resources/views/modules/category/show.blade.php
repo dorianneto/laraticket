@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="panel-footer">
-                            <a href="{{ route('category.edit', $data->id) }}" class="btn btn-default">{{ trans('form.edit') }}</a>
+                            <a href="{{ route('category.edit', $data->id) }}" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i> {{ trans('form.edit') }}</a>
                             <a href="{{ route('category.index') }}" class="btn btn-link">{{ trans('form.cancel') }}</a>
                         </div>
                     </form>

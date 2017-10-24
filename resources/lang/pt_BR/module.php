@@ -40,15 +40,9 @@ foreach (json_decode(json_encode($modules)) as $item) {
 }
 
 // Custom
-// $trans['example'] = [
-//     'title'         => "Examples",
-//     'add'           => "Nova example",
-//     'add_title'     => "Nova example",
-//     'add_subtitle'  => "Cadastro de nova example",
-//     'edit_title'    => "Editar example",
-//     'edit_subtitle' => "Edição dos dados da example",
-//     'show_title'    => "Visualizar example",
-//     'show_subtitle' => "Visualizar informações da example"
-// ];
+$trans['profile'] = [
+    'title'    => "Configurações da conta",
+    'subtitle' => "Configurações dos dados da conta",
+];
 
 return $trans;

@@ -15,9 +15,9 @@
             <thead>
                 <tr>
                     <th width="5%">{{ trans('form.id_column') }}</th>
-                    <th width="45%">{{ trans('form.title') }}</th>
+                    <th width="50%">{{ trans('form.title') }}</th>
                     <th width="30%">{{ trans('form.created_at') }}</th>
-                    <th width="20%">{{ trans('form.actions') }}</th>
+                    <th width="15%">{{ trans('form.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,12 +28,12 @@
                         <td>{{ $item->created_at->format('d/m/Y') }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('priority.edit', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.edit') }}</a>
-                                <a href="{{ route('priority.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.show') }}</a>
+                                <a href="{{ route('priority.edit', $item->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></a>
+                                <a href="{{ route('priority.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
                                 <a href="#" class="btn btn-danger btn-sm pull-right"
                                     onclick="event.preventDefault();
                                             document.getElementById('delete-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> {{ trans('form.destroy') }}
+                                    <i class="fa fa-trash"></i>
                                 </a>
                             </div>
 

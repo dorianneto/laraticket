@@ -7,6 +7,7 @@
         </div>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard.index') }}">{{ trans('miscellaneous.dashboard') }}</a></li>
+            <li><a href="{{ route('ticket.index') }}">{{ trans_choice('miscellaneous.ticket', 2) }}</a></li>
             <li class="active">{{ trans('module.ticket.add_title') }}</li>
         </ol>
         <div class="row">
@@ -78,8 +79,8 @@
                         </div>
 
                         <div class="panel-footer">
-                            <button type="submit" class="btn btn-default">{{ trans('form.save') }}</button>
-                            <a href="{{ route('ticket.index') }}" class="btn btn-link">{{ trans('form.cancel') }}</a>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-floppy-o" aria-hidden="true"></i> {{ trans('form.save') }}</button>
+                            <a href="{{ route('dashboard.index') }}" class="btn btn-link">{{ trans('form.cancel') }}</a>
                         </div>
                     </form>
                 </div>

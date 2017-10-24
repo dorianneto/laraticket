@@ -4,11 +4,12 @@
     <div class="container">
         <div class="page-header">
             @include('modules.ticket.partials.actions')
-            <h1>Tickets <span class="badge">arquivados</span></h1>
+            <h1>{{ trans_choice('miscellaneous.ticket', 2) }} <span class="badge">{{ strtolower(trans_choice('miscellaneous.archived', 2)) }}</span></h1>
         </div>
         <ol class="breadcrumb">
             <li><a href="{{ route('dashboard.index') }}">{{ trans('miscellaneous.dashboard') }}</a></li>
-            <li class="active">{{ trans('module.ticket.title') }}</li>
+            <li><a href="{{ route('ticket.index') }}">{{ trans_choice('miscellaneous.ticket', 2) }}</a></li>
+            <li class="active">{{ trans_choice('miscellaneous.archived', 2) }} </li>
         </ol>
         <div class="collapse clearfix" id="filterTicket">
             <div class="well">
@@ -19,8 +20,8 @@
                 <tr>
                     <th>{{ trans('form.id_column') }}</th>
                     <th>{{ trans('form.title') }}</th>
-                    <th>Situação</th>
-                    <th>Prioridade</th>
+                    <th>{{ trans('form.situation') }}</th>
+                    <th>{{ trans('form.priority') }}</th>
                     <th>{{ trans('form.created_at') }}</th>
                     <th>{{ trans('form.actions') }}</th>
                 </tr>
@@ -31,8 +32,8 @@
                         <td>{{ $item->id }}</td>
                         <td>
                             <strong>{{ $item->title }}</strong><br>
-                            <span class="label label-default">Departamento: {{ $item->department->title }}</span>
-                            <span class="label label-default">Categoria: {{ $item->category->title }}</span>
+                            <span class="label label-default"><i class="fa fa-building" aria-hidden="true"></i> {{ $item->department->title }}</span>
+                            <span class="label label-default"><i class="fa fa-tag" aria-hidden="true"></i> {{ $item->category->title }}</span>
                         </td>
                         <td>{{ trans("miscellaneous.$item->situation") }}</td>
                         <td>{{ $item->priority->title }}</td>
@@ -42,12 +43,12 @@
                                 <a href="#" class="btn btn-success btn-sm"
                                     onclick="event.preventDefault();
                                             document.getElementById('restore-{{ $item->id }}').submit();">
-                                    <i class="fa fa-trash"></i> Restaurar
+                                    <i class="fa fa-refresh"></i>
                                 </a>
                                 <a href="#" class="btn btn-danger btn-sm"
                                     onclick="event.preventDefault();
                                             if (confirm('Deseja realmente excluir?')) { document.getElementById('delete-{{ $item->id }}').submit();} else { return false;}">
-                                    <i class="fa fa-trash"></i> Excluir
+                                    <i class="fa fa-trash"></i>
                                 </a>
                             </div>
 
@@ -63,7 +64,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">{{ trans('message.no_results') }}</td>
+                        <td colspan="6">{{ trans('message.no_results') }}</td>
                     </tr>
                 @endforelse
             </tbody>

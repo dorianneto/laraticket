@@ -21,23 +21,23 @@
             @if (!Auth::guest())
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ route('dashboard.index') }}" class="btn btn-link">Dashboard</a></li>
+                    <li><a href="{{ route('dashboard.index') }}" class="btn btn-link"><i class="fa fa-tachometer" aria-hidden="true"></i> {{ trans('miscellaneous.dashboard') }}</a></li>
                     @can ('list-ticket')
-                        <li><a href="{{ route('ticket.index') }}" class="btn btn-link">Tickets</a></li>
+                        <li><a href="{{ route('ticket.index') }}" class="btn btn-link"><i class="fa fa-life-ring" aria-hidden="true"></i> {{ trans_choice('miscellaneous.ticket', 2) }}</a></li>
                     @endcan
                     @can ('create-ticket')
-                        <li class="active"><a href="{{ route('ticket.report') }}" class="btn btn-link">Reportar</a></li>
+                        <li class="active"><a href="{{ route('ticket.report') }}" class="btn btn-link"><i class="fa fa-flag" aria-hidden="true"></i> {{ trans('miscellaneous.report') }}</a></li>
                     @endcan
                     @can ('see-auxiliares')
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle btn btn-link" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <i class="fa fa-power-off"></i> Auxiliares <span class="caret"></span>
+                                <i class="fa fa-bars" aria-hidden="true"></i> {{ trans_choice('miscellaneous.auxiliary', 2) }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('category.index') }}">Categorias</a></li>
-                                <li><a href="{{ route('priority.index') }}">Prioridades</a></li>
-                                <li class="disabled"><a href="#">Departamentos</a></li>
+                                <li><a href="{{ route('category.index') }}">{{ trans_choice('miscellaneous.category', 2) }}</a></li>
+                                <li><a href="{{ route('priority.index') }}">{{ trans_choice('miscellaneous.priority', 2) }}</a></li>
+                                <li class="disabled"><a href="#">{{ trans_choice('miscellaneous.department', 2) }}</a></li>
                             </ul>
                         </li>
                     @endcan
@@ -48,24 +48,24 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @guest
-                    <li><a href="{{ route('login') }}">Acesso</a></li>
-                    <li><a href="{{ route('register') }}">Registre-se</a></li>
+                    <li><a href="{{ route('login') }}">{{ trans('miscellaneous.sign_in') }}</a></li>
+                    <li><a href="{{ route('register') }}">{{ trans('miscellaneous.register') }}</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <i class="fa fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                            <i class="fa fa-user-circle" aria-hidden="true"></i> {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
                             @can ('edit-profile')
-                                <li><a href="{{ route('user.profile') }}"><i class="fa fa-gears" aria-hidden="true"></i> Configurações da conta</a></li>
+                                <li><a href="{{ route('user.profile') }}"><i class="fa fa-gears" aria-hidden="true"></i> {{ trans('miscellaneous.edit_profile') }}</a></li>
                             @endcan
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a href="{{ route('logout') }}" class="logout"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> Sair
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> {{ trans('miscellaneous.sign_out') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
