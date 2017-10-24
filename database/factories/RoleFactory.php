@@ -2,14 +2,8 @@
 
 use Faker\Generator as Faker;
 
-$uniqueName = [];
-
-$factory->define(App\Role::class, function (Faker $faker) use (&$uniqueName) {
-    do {
-        $name = $faker->randomElement(['Manager', 'Operator', 'Customer']);
-    } while (in_array($name, $uniqueName));
-
-    $uniqueName[] = $name;
+$factory->define(App\Role::class, function (Faker $faker) {
+    $name         = $faker->unique()->randomElement(['Manager', 'Operator', 'Customer']);
     $slug         = str_slug($name, '-');
     $permissions  = [
         'metric-ticket'  => null,
