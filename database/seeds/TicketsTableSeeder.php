@@ -15,7 +15,10 @@ class TicketsTableSeeder extends Seeder
         factory(App\Ticket::class, 3)->create();
 
         factory(App\Ticket::class, 2)->create()->each(function($item) use ($faker) {
-            return $item->users()->attach(2, ['message' => $faker->paragraph]);
+            return $item->users()->attach(2, [
+                'message' => $faker->paragraph,
+                'created_at' => \Carbon\Carbon::now()
+            ]);
         });
     }
 }

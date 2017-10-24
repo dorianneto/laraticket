@@ -25,7 +25,7 @@ class Ticket extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(\App\User::class)->withPivot('message');
+        return $this->belongsToMany(\App\User::class)->withPivot(['message', 'created_at']);
     }
 
     /**

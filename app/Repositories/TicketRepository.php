@@ -23,7 +23,7 @@ class TicketRepository extends AbstractRepository
      */
     public function getAll()
     {
-        return Ticket::where('situation', 'open')
+        return Ticket::whereIn('situation', ['in progress', 'open'])
             ->orderBy('created_at', 'desc')
             ->get();
     }

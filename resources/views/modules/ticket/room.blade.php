@@ -45,15 +45,15 @@
                 </div>
             </div>
 
-            @foreach($data->users as $key => $user)
+            @foreach($messages as $key => $user)
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">#{{ $key }} {{ trans('form.message') }}</h3>
                         </div>
                         <div class="panel-body">
-                            <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
-                                <textarea name="message" class="form-control" rows="5" readonly disabled>{{ $user->pivot->message }}</textarea>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" readonly disabled>{{ $user->pivot->message }}</textarea>
                             </div>
                         </div>
 
@@ -78,19 +78,17 @@
                         {{ csrf_field() }}
                         <input type="hidden" id="action" name="action">
 
-                        @if (in_array($data->situation, ['in progress', 'open']))
-                            <div class="panel-body">
-                                <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
-                                    <label for="textareaMessage">{{ trans('form.message') }}</label>
-                                    <textarea name="message" class="form-control" id="textareaMessage" rows="5">{{ old('message') }}</textarea>
-                                    @if ($errors->has('message'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('message') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
+                        <div class="panel-body">
+                            <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
+                                <label for="textareaMessage">{{ trans('form.message') }}</label>
+                                <textarea name="message" class="form-control" id="textareaMessage" rows="5">{{ old('message') }}</textarea>
+                                @if ($errors->has('message'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('message') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                        @endif
+                        </div>
 
                         <div class="panel-footer">
                             @if (in_array($data->situation, ['in progress', 'open']))

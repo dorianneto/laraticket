@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
+use App\Http\Requests\TicketRoomRequest;
 use App\Repositories\TicketRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\PriorityRepository;
@@ -231,8 +232,9 @@ class TicketController extends Controller
     public function room($id)
     {
         $data = $this->ticketRepository->findForRoom($id);
+        $messages = $data->users()->orderBy('pivot_created_at', 'asc')->get();
 
-        return view('modules.ticket.room', compact('data'));
+        return view('modules.ticket.room', compact('data', 'messages'));
     }
 
     /**
@@ -241,14 +243,15 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function roomPost(Request $request, $id)
+    public function roomPost(TicketRoomRequest $request, $id)
     {
         try {
-            $run_action = $this->runActionOnRoom($request, $id);
+            $this->runActionOnRoom($request, $id);
 
-            if ($run_action === false) {
-                $this->ticketRepository->assign($id, Auth::user()->id, ['message' => $request->input('message')]);
-            }
+            $this->ticketRepository->assign($id, Auth::user()->id, [
+                'message' => $request->input('message'),
+                'created_at' => \Carbon\Carbon::now()
+            ]);
 
             $notice = [
                 'status' => 'success',

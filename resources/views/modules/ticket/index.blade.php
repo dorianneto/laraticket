@@ -44,7 +44,6 @@
                                 @else
                                     <a href="{{ route('ticket.room', $item->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Disponível</a>
                                 @endif
-                                <a href="{{ route('ticket.show', $item->id) }}" class="btn btn-info btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.show') }}</a>
                                 <a href="#" class="btn btn-danger btn-sm pull-right"
                                     onclick="event.preventDefault();
                                             document.getElementById('archive-{{ $item->id }}').submit();">
