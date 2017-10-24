@@ -79,7 +79,7 @@
                                         <td>
                                             <div class="btn-group">
                                                 @can('show-ticket')
-                                                    <a href="{{ route('ticket.room', $ticket->id) }}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{ trans('form.access') }}</a>
+                                                    <a href="{{ route('ticket.room', $ticket->id) }}" class="btn btn-default btn-sm"><i class="fa fa-inbox"></i></a>
                                                 @endcan
                                             </div>
                                         </td>
@@ -92,9 +92,11 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="panel-footer">
-                        <a href="{{ route('ticket.index') }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> {{ trans('miscellaneous.show_all') }}</a>
-                    </div>
+                    @can ('list-ticket')
+                        <div class="panel-footer">
+                            <a href="{{ route('ticket.index') }}" class="btn btn-default btn-sm"><i class="fa fa-eye"></i> {{ trans('miscellaneous.show_all') }}</a>
+                        </div>
+                    @endcan
                 </div>
             </div>
             <div class="col-md-4">

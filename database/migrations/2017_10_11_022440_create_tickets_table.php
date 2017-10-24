@@ -16,7 +16,6 @@ class CreateTicketsTable extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('message');
             $table->enum('situation', ['closed', 'invalid', 'in progress', 'open', 'resolved'])->default('open');
             $table->boolean('notification')->default(0);
             $table->unsignedInteger('user_id');

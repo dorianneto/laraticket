@@ -50,7 +50,7 @@
                     <select name="situation" id="selectSituation" class="form-control">
                         <option value="">{{ trans('miscellaneous.select_option_default') }}</option>
                         @foreach($situations as $situation)
-                            <option value="{{ $situation }}">{{ $situation }}</option>
+                            <option value="{{ $situation }}">{{ trans("miscellaneous.$situation") }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('situation'))

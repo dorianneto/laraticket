@@ -10,7 +10,6 @@ $factory->define(App\Ticket::class, function (Faker $faker) {
 
     return [
         'title'     => $faker->sentence(4),
-        'message'   => $faker->paragraph,
         'situation' => $faker->randomElement([
             'closed', 'invalid', 'in progress', 'open', 'resolved'
         ]),

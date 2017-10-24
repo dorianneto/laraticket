@@ -26,15 +26,6 @@
                             <label>{{ trans('form.title') }}</label>
                             <input type="text" class="form-control" value="{{ $data->title }}" readonly disabled>
                         </div>
-                        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                            <label>{{ trans('form.message') }}</label>
-                            <textarea name="description" class="form-control" rows="5" readonly disabled>{{ $data->message }}</textarea>
-                            @if ($errors->has('description'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('description') }}</strong>
-                                </span>
-                            @endif
-                        </div>
                     </div>
                     <div class="panel-footer">
                         <span class="label label-default"><i class="fa fa-building" aria-hidden="true"></i> {{ $data->department->title }}</span>
@@ -66,8 +57,10 @@
 
             @if (in_array($data->situation, ['closed', 'invalid', 'resolved']))
                 <div class="col-md-12">
-                    <div class="alert alert-info text-center">
-                        <strong><i class="fa fa-times" aria-hidden="true"></i> Ticket encerrado</strong>
+                    <div class="alert alert-{{ $data->situation == 'resolved' ? 'success' : ($data->situation == 'invalid' ? 'warning' : 'danger') }} text-center">
+                        <strong>
+                            <i class="fa fa-{{ $data->situation == 'resolved' ? 'check' : ($data->situation == 'invalid' ? 'exclamation' : 'times') }}" aria-hidden="true"></i> Ticket {{ strtolower(trans("miscellaneous.{$data->situation}")) }}
+                        </strong>
                     </div>
                 </div>
             @endif

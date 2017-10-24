@@ -181,16 +181,24 @@ class TicketController extends Controller
                     case 'department':
                     case 'category':
                     case 'priority':
+                        $data[$key] = false;
                         $data[$key . '_id'] = $value;
-                        unset($data[$key]);
                         break;
+                    case 'message':
+                        $value = false;
                     default:
                         $data[$key] = $value;
                         break;
                 }
             }, $data, array_keys($data));
 
+            $data = array_filter($data, function($value) {
+                return $value !== false;
+            });
+
             $ticket = $this->ticketRepository->store($data);
+
+            $this->ticketRepository->assign($ticket->id, $request->user_id, ['message' => $request->message]);
 
             $notice = [
                 'status' => 'success',
