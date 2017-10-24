@@ -36,7 +36,7 @@ $factory->define(App\Role::class, function (Faker $faker) {
             break;
         case 'Customer':
             $permissions['metric-ticket']  = false;
-            $permissions['list-ticket']    = true;
+            $permissions['list-ticket']    = false;
             $permissions['show-ticket']    = true;
             $permissions['delete-ticket']  = false;
             $permissions['create-ticket']  = true;
