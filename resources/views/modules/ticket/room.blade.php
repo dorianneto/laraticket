@@ -36,24 +36,30 @@
                 </div>
             </div>
 
-            @foreach($messages as $key => $user)
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">#{{ $key }} {{ trans('form.message') }}</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <textarea class="form-control" rows="5" readonly disabled>{{ $user->pivot->message }}</textarea>
+            <div class="col-md-12">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    @foreach($messages as $key => $user)
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" href="#collapse-{{ $key }}" aria-expanded="true" aria-controls="collapse-{{ $key }}">
+                                        {{ trans('form.message') }} <span class="badge">#{{ $key }}</span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapse-{{ $key }}" class="panel-collapse collapse {{ ($messages->count()-1) == $key ? 'in' : null }}" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    {{ $user->pivot->message }}
+                                </div>
+                                <div class="panel-footer">
+                                    <span class="label label-default"><i class="fa fa-user" aria-hidden="true"></i> {{ $user->name }}</span>
+                                    <span class="label label-default"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ $user->pivot->created_at->format('d/m/Y H:m:s') }}</span>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="panel-footer">
-                            <span class="label label-default"><i class="fa fa-user" aria-hidden="true"></i> {{ $user->name }}</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
 
             @if (in_array($data->situation, ['closed', 'invalid', 'resolved']))
                 <div class="col-md-12">
