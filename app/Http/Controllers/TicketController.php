@@ -6,34 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\TicketRequest;
 use App\Http\Requests\TicketRoomRequest;
 use App\Repositories\TicketRepository;
-use App\Repositories\DepartmentRepository;
-use App\Repositories\PriorityRepository;
-use App\Repositories\CategoryRepository;
 use Auth;
 
 class TicketController extends Controller
 {
-    /**
-     * Undocumented variable
-     *
-     * @var [type]
-     */
-    protected $departmentRepository;
-
-    /**
-     * Undocumented variable
-     *
-     * @var [type]
-     */
-    protected $priorityRepository;
-
-    /**
-     * Undocumented variable
-     *
-     * @var [type]
-     */
-    protected $categoryRepository;
-
     /**
      * Undocumented variable
      *
@@ -49,18 +25,11 @@ class TicketController extends Controller
      * @param PriorityRepository $priorityRepository
      * @param CategoryRepository $categoryRepository
      */
-    public function __construct(
-        TicketRepository $ticketRepository,
-        DepartmentRepository $departmentRepository,
-        PriorityRepository $priorityRepository,
-        CategoryRepository $categoryRepository
-    ) {
+    public function __construct(TicketRepository $ticketRepository)
+    {
         parent::__construct();
 
-        $this->ticketRepository     = $ticketRepository;
-        $this->departmentRepository = $departmentRepository;
-        $this->priorityRepository   = $priorityRepository;
-        $this->categoryRepository   = $categoryRepository;
+        $this->ticketRepository = $ticketRepository;
     }
 
     /**
@@ -70,6 +39,28 @@ class TicketController extends Controller
      */
     public function index()
     {
+        if (request()->method() == 'POST') {
+            $input = request()->except(['_token']);
+
+            array_map(function($value, $key) use (&$input) {
+                switch ($key) {
+                    case 'department':
+                    case 'category':
+                    case 'priority':
+                        $input[$key . '_id'] = $value;
+                        unset($input[$key]);
+                        break;
+                    default:
+                        $input[$key] = $value;
+                        break;
+                }
+            }, $input, array_keys($input));
+
+            $data = $this->ticketRepository->getAllBy($input);
+
+            return view("modules.ticket.index", compact('data'));
+        }
+
         $data = $this->ticketRepository->getAll();
 
         return view("modules.ticket.index", compact('data'));
@@ -169,14 +160,7 @@ class TicketController extends Controller
      */
     public function report()
     {
-        $departments = $this->departmentRepository->getForSelect(['id', 'title']);
-        $priorities  = $this->priorityRepository->getForSelect(['id', 'title']);
-        $categories  = $this->categoryRepository->getForSelect(['id', 'title']);
-
-        return view('modules.ticket.report')
-            ->with('departments', $departments)
-            ->with('priorities', $priorities)
-            ->with('categories', $categories);
+        return view('modules.ticket.report');
     }
 
     /**

@@ -48,7 +48,15 @@ abstract class AbstractRepository
      */
     public function getAllBy(array $where)
     {
-        return $this->model->where($where)->get();
+        $model = $this->model;
+
+        foreach ($where as $key => $item) {
+            if (is_null($item)) { continue;}
+
+            $model = $model->where($key, $item);
+        }
+
+        return $model->get();
     }
 
     /**

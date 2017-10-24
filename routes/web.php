@@ -28,7 +28,7 @@ Route::prefix('auxiliary')->middleware('can:see-auxiliares')->group(function() {
 });
 
 // Ticket
-Route::get('ticket', 'TicketController@index')->name('ticket.index')->middleware('can:list-ticket');
+Route::match(['get', 'post'], 'ticket', 'TicketController@index')->name('ticket.index')->middleware('can:list-ticket');
 Route::get('ticket/archive', 'TicketController@archive')->name('ticket.archive')->middleware('can:delete-ticket');
 Route::post('ticket/archive/{id}', 'TicketController@archivePost')->name('ticket.archivePost')->middleware('can:delete-ticket');
 Route::post('ticket/restore/{id}', 'TicketController@restore')->name('ticket.restore')->middleware('can:delete-ticket');

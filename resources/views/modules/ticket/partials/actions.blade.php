@@ -1,7 +1,10 @@
 <div class="btn-group pull-right" role="group">
-    <a class="btn btn-default" data-toggle="collapse" href="#filterTicket">
-        Filtrar
-    </a>
+    @if (isset($archived))
+        <a class="btn btn-default" data-toggle="collapse" href="#filterTicket">
+            Filtrar
+        </a>
+    @endif
+
     @can('delete-ticket')
         @if (isset($archived))
             <a href="{{ route('ticket.archive') }}" class="btn btn-danger"><i class="fa fa-plus-circle"></i> Arquivados</a>
