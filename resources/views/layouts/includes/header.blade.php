@@ -21,7 +21,7 @@
             @if (!Auth::guest())
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="#" class="btn btn-link">Dashboard</a></li>
+                    <li><a href="{{ route('dashboard.index') }}" class="btn btn-link">Dashboard</a></li>
                     @can ('list-ticket')
                         <li><a href="{{ route('ticket.index') }}" class="btn btn-link">Tickets</a></li>
                     @endcan
@@ -37,7 +37,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('category.index') }}">Categorias</a></li>
                                 <li><a href="{{ route('priority.index') }}">Prioridades</a></li>
-                                <li><a href="#">Departamentos</a></li>
+                                <li class="disabled"><a href="#">Departamentos</a></li>
                             </ul>
                         </li>
                     @endcan

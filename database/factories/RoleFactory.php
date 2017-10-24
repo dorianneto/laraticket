@@ -32,7 +32,7 @@ $factory->define(App\Role::class, function (Faker $faker) use (&$uniqueName) {
             $permissions['see-auxiliares'] = true;
             break;
         case 'Operator':
-            $permissions['metric-ticket']  = false;
+            $permissions['metric-ticket']  = true;
             $permissions['list-ticket']    = true;
             $permissions['show-ticket']    = true;
             $permissions['delete-ticket']  = true;

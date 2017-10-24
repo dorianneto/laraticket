@@ -35,9 +35,19 @@ class TicketController extends Controller
     protected $categoryRepository;
 
     /**
+     * Undocumented variable
+     *
+     * @var [type]
+     */
+    protected $ticketRepository;
+
+    /**
      * Undocumented function
      *
      * @param TicketRepository $ticketRepository
+     * @param DepartmentRepository $departmentRepository
+     * @param PriorityRepository $priorityRepository
+     * @param CategoryRepository $categoryRepository
      */
     public function __construct(
         TicketRepository $ticketRepository,

@@ -29,6 +29,37 @@ class TicketRepository extends AbstractRepository
     }
 
     /**
+     * [getMyTickets description]
+     * @return [type] [description]
+     */
+    public function getMyTickets()
+    {
+        return Ticket::whereIn('situation', ['in progress', 'open'])
+            ->whereHas('users', function($query) {
+                return $query->where('user_id', Auth::user()->id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+
+    /**
+     * [getTicketMetrics description]
+     * @return [type] [description]
+     */
+    public function getTicketMetrics()
+    {
+        $metrics = [];
+        $all = Ticket::orderBy('created_at', 'desc')->get();
+
+        $metrics['open'] = $all->whereIn('situation', ['open', 'in progress']);
+        $metrics['closed'] = $all->where('situation', 'closed');
+        $metrics['invalid'] = $all->where('situation', 'invalid');
+        $metrics['resolved'] = $all->where('situation', 'resolved');
+
+        return $metrics;
+    }
+
+    /**
      * [findForRoom description]
      * @return [type] [description]
      */
